@@ -116,27 +116,23 @@ namespace VmmFrost.ScatterAPI
         /// Set the Result from a Value Type.
         /// </summary>
         /// <param name="buffer">Raw memory buffer for this read.</param>
-#pragma warning disable CS8500
         private void SetValueResult(byte[] buffer)
         {
             if (buffer.Length != Marshal.SizeOf<T>()) // Safety Check
                 throw new ArgumentOutOfRangeException(nameof(buffer));
-
-            GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+            var h = GCHandle.Alloc(buffer, GCHandleType.Pinned); // Pin Buffer
             try
             {
-                IntPtr memPtr = handle.AddrOfPinnedObject();
-                Result = Marshal.PtrToStructure<T>(memPtr);
+                var ptr = h.AddrOfPinnedObject();
+                Result = Marshal.PtrToStructure<T>(ptr);
             }
             finally
-            {
-                handle.Free();
+            { 
+                h.Free(); // Release GC Handle
             }
-
             if (Result is MemPointer memPtrResult)
                 memPtrResult.Validate();
         }
-#pragma warning restore CS8500
 
         /// <summary>
         /// (Base)
