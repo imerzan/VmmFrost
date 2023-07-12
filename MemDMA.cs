@@ -39,17 +39,10 @@ namespace VmmFrost
                     /// Check for Existing MemMap
                     if (!File.Exists(MemoryMapFile))
                     {
+                        Debug.WriteLine("[DMA] Creating new Mem Map...");
                         try
                         {
-                            Debug.WriteLine("[DMA] Generating Mem Map...");
-                            try // Init for Memory Map Generation
-                            {
-                                Vmm = new Vmm(args);
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new DMAException("Vmm Init [FAIL]", ex);
-                            }
+                            Vmm = new Vmm(args);
                             GetMemMap();
                         }
                         finally
