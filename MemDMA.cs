@@ -133,7 +133,7 @@ namespace VmmFrost
         /// </summary>
         /// <param name="process">Process Name (including file extension, ex: .exe)</param>
         /// <returns>True if successful, otherwise False.</returns>
-        protected virtual bool GetPid(string process)
+        public virtual bool GetPid(string process)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace VmmFrost
         /// </summary>
         /// <param name="module">Module Name (including file extension, ex: .dll)</param>
         /// <returns>True if successful, otherwise False.</returns>
-        protected virtual bool GetModuleBase(string module)
+        public virtual bool GetModuleBase(string module)
         {
             try
             {
