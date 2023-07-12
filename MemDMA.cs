@@ -20,7 +20,7 @@ namespace VmmFrost
         /// <summary>
         /// MemProcFS Vmm Instance
         /// </summary>
-        public Vmm HVmm { get; }
+        public Vmm Vmm { get; }
 
         /// <summary>
         /// Constructor.
@@ -44,7 +44,7 @@ namespace VmmFrost
                             Debug.WriteLine("[DMA] Generating Mem Map...");
                             try // Init for Memory Map Generation
                             {
-                                HVmm = new Vmm(args);
+                                Vmm = new Vmm(args);
                             }
                             catch (Exception ex)
                             {
@@ -54,8 +54,8 @@ namespace VmmFrost
                         }
                         finally
                         {
-                            HVmm?.Dispose(); // Close FPGA Connection after getting map.
-                            HVmm = null; // Null Vmm Handle
+                            Vmm?.Dispose(); // Close FPGA Connection after getting map.
+                            Vmm = null; // Null Vmm Handle
                         }
                     }
                     /// Append Memory Map Args
@@ -63,7 +63,7 @@ namespace VmmFrost
                     args = args.Concat(mapArgs).ToArray();
                 }
                 /// Final Init
-                HVmm = new Vmm(args);
+                Vmm = new Vmm(args);
             }
             catch (Exception ex)
             {
@@ -81,7 +81,7 @@ namespace VmmFrost
         {
             try
             {
-                var map = HVmm.Map_GetPhysMem();
+                var map = Vmm.Map_GetPhysMem();
                 if (map.Length == 0) 
                     throw new Exception("Map_GetPhysMem() returned no entries!");
                 var sb = new StringBuilder();
@@ -116,7 +116,7 @@ namespace VmmFrost
         /// <returns>Process ID (PID)</returns>
         public uint GetPid(string process)
         {
-            if (!HVmm.PidGetFromName(process, out var pid))
+            if (!Vmm.PidGetFromName(process, out var pid))
                 throw new DMAException("PID Lookup Failed");
             return pid;
         }
@@ -129,7 +129,7 @@ namespace VmmFrost
         /// <returns>Module Base virtual address.</returns>
         public ulong GetModuleBase(uint pid, string module)
         {
-            var moduleBase = HVmm.ProcessGetModuleBase(pid, module);
+            var moduleBase = Vmm.ProcessGetModuleBase(pid, module);
             if (moduleBase == 0x0)
                 throw new DMAException($"Unable to get Module Base for '{module}'");
             return moduleBase;
@@ -175,7 +175,7 @@ namespace VmmFrost
                 }
             }
             uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-            var scatters = HVmm.MemReadScatter(pid, flags, pagesToRead.ToArray()); // execute scatter read
+            var scatters = Vmm.MemReadScatter(pid, flags, pagesToRead.ToArray()); // execute scatter read
 
             foreach (var entry in entries) // Second loop through all entries - PARSE RESULTS
             {
@@ -240,7 +240,7 @@ namespace VmmFrost
             try
             {
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(pid, addr, (uint)size, flags);
+                var buf = Vmm.MemRead(pid, addr, (uint)size, flags);
                 if (buf.Length != size) 
                     throw new DMAException("Incomplete memory read!");
                 return buf;
@@ -318,7 +318,7 @@ namespace VmmFrost
             {
                 int size = Marshal.SizeOf<T>();
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(pid, addr, (uint)size, flags);
+                var buf = Vmm.MemRead(pid, addr, (uint)size, flags);
                 return MemoryMarshal.Read<T>(buf);
             }
             catch (Exception ex)
@@ -342,7 +342,7 @@ namespace VmmFrost
             try
             {
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(pid, addr, size, flags);
+                var buf = Vmm.MemRead(pid, addr, size, flags);
                 return Encoding.UTF8.GetString(buf).Split('\0')[0];
             }
             catch (Exception ex)
@@ -370,7 +370,7 @@ namespace VmmFrost
             {
                 var data = new byte[Marshal.SizeOf<T>()];
                 MemoryMarshal.Write(data, ref value);
-                if (!HVmm.MemWrite(pid, addr, data))
+                if (!Vmm.MemWrite(pid, addr, data))
                     throw new Exception("Memory Write Failed!");
             }
             catch (Exception ex)
@@ -390,7 +390,7 @@ namespace VmmFrost
         {
             try
             {
-                using var hScatter = HVmm.Scatter_Initialize(pid, Vmm.FLAG_NOCACHE);
+                using var hScatter = Vmm.Scatter_Initialize(pid, Vmm.FLAG_NOCACHE);
                 foreach (var entry in entries)
                 {
                     if (!hScatter.PrepareWrite(entry.Va, entry.Value))
@@ -422,7 +422,7 @@ namespace VmmFrost
                 {
                     if (disposing)
                     {
-                        HVmm.Dispose();
+                        Vmm.Dispose();
                     }
                     _disposed = true;
                 }
