@@ -18,13 +18,11 @@ namespace VmmFrost
         private const string MemoryMapFile = "mmap.txt";
 
         /// <summary>
-        /// (Base)
         /// MemProcFS Vmm Instance
         /// </summary>
         public Vmm HVmm { get; }
 
         /// <summary>
-        /// (Base)
         /// Constructor.
         /// </summary>
         /// <param name="args">(Optional) Custom Startup Args. If NULL default FPGA parameters will be used.</param>
