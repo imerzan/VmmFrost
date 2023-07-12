@@ -16,16 +16,6 @@ namespace VmmFrost
         #region Fields/Properties/Constructor
 
         private const string MemoryMapFile = "mmap.txt";
-        /// <summary>
-        /// (Base)
-        /// Currently Set Process ID (PID).
-        /// </summary>
-        protected uint PID;
-        /// <summary>
-        /// (Base)
-        /// Currently Set Module Base Virtual Address.
-        /// </summary>
-        protected ulong ModuleBase;
 
         /// <summary>
         /// (Base)
@@ -43,7 +33,7 @@ namespace VmmFrost
         {
             try
             {
-                Debug.WriteLine("Loading memory module...");
+                Debug.WriteLine("[DMA] Loading...");
                 args ??= new string[] { "-printf", "-v", "-device", "fpga", "-waitinitialize" }; // Default args
                 if (autoMemMap)
                 {
@@ -74,14 +64,8 @@ namespace VmmFrost
                     var mapArgs = new string[] { "-memmap", MemoryMapFile };
                     args = args.Concat(mapArgs).ToArray();
                 }
-                try // Final Init
-                {
-                    HVmm = new Vmm(args);
-                }
-                catch (Exception ex)
-                {
-                    throw new DMAException("Vmm Init [FAIL]", ex);
-                }
+                /// Final Init
+                HVmm = new Vmm(args);
             }
             catch (Exception ex)
             {
@@ -128,46 +112,29 @@ namespace VmmFrost
         }
 
         /// <summary>
-        /// (Base)
         /// Obtain the PID for a process.
         /// </summary>
         /// <param name="process">Process Name (including file extension, ex: .exe)</param>
-        /// <returns>True if successful, otherwise False.</returns>
-        public virtual bool GetPid(string process)
+        /// <returns>Process ID (PID)</returns>
+        public uint GetPid(string process)
         {
-            try
-            {
-                if (!HVmm.PidGetFromName(process, out PID))
-                    throw new DMAException("PID Lookup Failed");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[DMA] Unable to get PID for {process}: {ex}");
-                return false;
-            }
+            if (!HVmm.PidGetFromName(process, out var pid))
+                throw new DMAException("PID Lookup Failed");
+            return pid;
         }
 
         /// <summary>
-        /// (Base)
         /// Obtain the Base Address of a Process Module.
         /// </summary>
+        /// <param name="pid">Process ID the Module is contained in.</param>
         /// <param name="module">Module Name (including file extension, ex: .dll)</param>
-        /// <returns>True if successful, otherwise False.</returns>
-        public virtual bool GetModuleBase(string module)
+        /// <returns>Module Base virtual address.</returns>
+        public ulong GetModuleBase(uint pid, string module)
         {
-            try
-            {
-                ModuleBase = HVmm.ProcessGetModuleBase(PID, module);
-                if (ModuleBase == 0x0)
-                    throw new DMAException("Module Lookup Failed");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[DMA] Unable to get Module Base for {module}: {ex}");
-                return false;
-            }
+            var moduleBase = HVmm.ProcessGetModuleBase(pid, module);
+            if (moduleBase == 0x0)
+                throw new DMAException($"Unable to get Module Base for '{module}'");
+            return moduleBase;
         }
         #endregion
 
@@ -178,7 +145,10 @@ namespace VmmFrost
         /// Designed to run without throwing unhandled exceptions, which will ensure the maximum amount of
         /// reads are completed OK even if a couple fail.
         /// </summary>
-        public virtual void ReadScatter(ReadOnlySpan<IScatterEntry> entries, bool useCache = true)
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="entries">Scatter Read Entries to read from for this round.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        internal virtual void ReadScatter(uint pid, ReadOnlySpan<IScatterEntry> entries, bool useCache = true)
         {
             var pagesToRead = new HashSet<ulong>(); // Will contain each unique page only once to prevent reading the same page multiple times
             foreach (var entry in entries) // First loop through all entries - GET INFO
@@ -187,8 +157,8 @@ namespace VmmFrost
                 ulong addr = entry.ParseAddr();
                 uint size = (uint)entry.ParseSize();
 
-                // INTEGRITY CHECK - Make sure the read is valid and within range
-                if (addr == 0x0 || size == 0 || size > (PAGE_SIZE * 10))
+                // INTEGRITY CHECK - Make sure the read is valid
+                if (addr == 0x0 || size == 0)
                 {
                     entry.IsFailed = true;
                     continue;
@@ -207,7 +177,7 @@ namespace VmmFrost
                 }
             }
             uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-            var scatters = HVmm.MemReadScatter(PID, flags, pagesToRead.ToArray()); // execute scatter read
+            var scatters = HVmm.MemReadScatter(pid, flags, pagesToRead.ToArray()); // execute scatter read
 
             foreach (var entry in entries) // Second loop through all entries - PARSE RESULTS
             {
@@ -256,18 +226,23 @@ namespace VmmFrost
         #endregion
 
         #region ReadMethods
+
         /// <summary>
         /// (Base)
         /// Read memory into a buffer.
         /// </summary>
-        public virtual byte[] ReadBuffer(ulong addr, int size, bool useCache = true)
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="addr">Virtual Address to read from.</param>
+        /// <param name="size">Size (bytes) of this read.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        /// <returns>Byte Array containing memory read.</returns>
+        /// <exception cref="DMAException"></exception>
+        public virtual byte[] ReadBuffer(uint pid, ulong addr, int size, bool useCache = true)
         {
             try
             {
-                if ((uint)size > PAGE_SIZE * 1500) 
-                    throw new DMAException("Buffer length outside expected bounds!");
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(PID, addr, (uint)size, flags);
+                var buf = HVmm.MemRead(pid, addr, (uint)size, flags);
                 if (buf.Length != size) 
                     throw new DMAException("Incomplete memory read!");
                 return buf;
@@ -282,14 +257,20 @@ namespace VmmFrost
         /// (Base)
         /// Read a chain of pointers and get the final result.
         /// </summary>
-        public virtual ulong ReadPtrChain(ulong addr, uint[] offsets, bool useCache = true)
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="addr">Virtual Address to read from.</param>
+        /// <param name="offsets">Offsets to read in a chain.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        /// <returns>Virtual address of the Pointer Result.</returns>
+        /// <exception cref="DMAException"></exception>
+        public virtual ulong ReadPtrChain(uint pid, ulong addr, uint[] offsets, bool useCache = true)
         {
             ulong ptr = addr; // push ptr to first address value
             for (int i = 0; i < offsets.Length; i++)
             {
                 try
                 {
-                    ptr = ReadPtr(ptr + offsets[i], useCache);
+                    ptr = ReadPtr(pid, ptr + offsets[i], useCache);
                 }
                 catch (Exception ex)
                 {
@@ -298,15 +279,21 @@ namespace VmmFrost
             }
             return ptr;
         }
+
         /// <summary>
         /// (Base)
         /// Resolves a pointer and returns the memory address it points to.
         /// </summary>
-        public virtual ulong ReadPtr(ulong addr, bool useCache = true)
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="addr">Virtual Address to read from.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        /// <returns>Virtual address of the Pointer Result.</returns>
+        /// <exception cref="DMAException"></exception>
+        public virtual ulong ReadPtr(uint pid, ulong addr, bool useCache = true)
         {
             try
             {
-                var ptr = ReadValue<MemPointer>(addr, useCache);
+                var ptr = ReadValue<MemPointer>(pid, addr, useCache);
                 ptr.Validate();
                 return ptr;
             }
@@ -320,16 +307,20 @@ namespace VmmFrost
         /// (Base)
         /// Read value type/struct from specified address.
         /// </summary>
-        /// <typeparam name="T">Specified Value Type.</typeparam>
-        /// <param name="addr">Address to read from.</param>
-        public virtual T ReadValue<T>(ulong addr, bool useCache = true)
+        /// <typeparam name="T">Value Type to read.</typeparam>
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="addr">Virtual Address to read from.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        /// <returns>Value Type of <typeparamref name="T"/></returns>
+        /// <exception cref="DMAException"></exception>
+        public virtual T ReadValue<T>(uint pid, ulong addr, bool useCache = true)
             where T : struct
         {
             try
             {
                 int size = Marshal.SizeOf<T>();
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(PID, addr, (uint)size, flags);
+                var buf = HVmm.MemRead(pid, addr, (uint)size, flags);
                 return MemoryMarshal.Read<T>(buf);
             }
             catch (Exception ex)
@@ -340,18 +331,21 @@ namespace VmmFrost
 
         /// <summary>
         /// (Base)
-        /// Read null terminated string (utf-8/default).
+        /// Read null terminated string (UTF-8).
         /// </summary>
-        /// <param name="length">Number of bytes to read.</param>
-        public virtual string ReadString(ulong addr, uint length, bool useCache = true) // read n bytes (string)
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="addr">Virtual Address to read from.</param>
+        /// <param name="size">Size (bytes) of this read.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        /// <returns>UTF-8 Encoded String</returns>
+        /// <exception cref="DMAException"></exception>
+        public virtual string ReadString(uint pid, ulong addr, uint size, bool useCache = true) // read n bytes (string)
         {
             try
             {
-                if (length > PAGE_SIZE) 
-                    throw new DMAException("String length outside expected bounds!");
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(PID, addr, length, flags);
-                return Encoding.Default.GetString(buf).Split('\0')[0];
+                var buf = HVmm.MemRead(pid, addr, size, flags);
+                return Encoding.UTF8.GetString(buf).Split('\0')[0];
             }
             catch (Exception ex)
             {
@@ -361,21 +355,24 @@ namespace VmmFrost
         #endregion
 
         #region WriteMethods
+
         /// <summary>
         /// (Base)
         /// Write value type/struct to specified address.
         /// </summary>
-        /// <typeparam name="T">Specified Value Type.</typeparam>
-        /// <param name="addr">Address to write to.</param>
-        /// <param name="value">Value to write.</param>
-        public virtual void WriteValue<T>(ulong addr, T value)
+        /// <typeparam name="T">Value Type to write.</typeparam>
+        /// <param name="pid">Process ID to write to.</param>
+        /// <param name="addr">Virtual Address to write to.</param>
+        /// <param name="value"></param>
+        /// <exception cref="DMAException"></exception>
+        public virtual void WriteValue<T>(uint pid, ulong addr, T value)
             where T : struct
         {
             try
             {
                 var data = new byte[Marshal.SizeOf<T>()];
                 MemoryMarshal.Write(data, ref value);
-                if (!HVmm.MemWrite(PID, addr, data))
+                if (!HVmm.MemWrite(pid, addr, data))
                     throw new Exception("Memory Write Failed!");
             }
             catch (Exception ex)
@@ -383,16 +380,19 @@ namespace VmmFrost
                 throw new DMAException($"[DMA] ERROR writing {typeof(T)} value at 0x{addr.ToString("X")}", ex);
             }
         }
+
         /// <summary>
         /// (Base)
         /// Perform a Scatter Write Operation.
         /// </summary>
-        /// <param name="entries">Write entries.</param>
-        public virtual void WriteScatter(params ScatterWriteEntry[] entries)
+        /// <param name="pid">Process ID to write to.</param>
+        /// <param name="entries">Scatter Write Entries to write.</param>
+        /// <exception cref="DMAException"></exception>
+        public virtual void WriteScatter(uint pid, params ScatterWriteEntry[] entries)
         {
             try
             {
-                using var hScatter = HVmm.Scatter_Initialize(PID, Vmm.FLAG_NOCACHE);
+                using var hScatter = HVmm.Scatter_Initialize(pid, Vmm.FLAG_NOCACHE);
                 foreach (var entry in entries)
                 {
                     if (!hScatter.PrepareWrite(entry.Va, entry.Value))
@@ -411,6 +411,9 @@ namespace VmmFrost
         #region IDisposable
         private readonly object _disposeSync = new();
         private bool _disposed = false;
+        /// <summary>
+        /// Closes the FPGA Connection and cleans up native resources.
+        /// </summary>
         public void Dispose() => Dispose(true); // Public Dispose Pattern
 
         protected virtual void Dispose(bool disposing)
@@ -432,20 +435,26 @@ namespace VmmFrost
         #region Memory Macros
         /// Mem Align Functions Ported from Win32 (C Macros)
         protected const ulong PAGE_SIZE = 0x1000;
-        protected const int PAGE_SHIFT = 12;
+        private const int PAGE_SHIFT = 12;
 
         /// <summary>
         /// The PAGE_ALIGN macro takes a virtual address and returns a page-aligned
         /// virtual address for that page.
         /// </summary>
+        /// <param name="va">Virtual address to check.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected static ulong PAGE_ALIGN(ulong va)
         {
             return (va & ~(PAGE_SIZE - 1));
         }
+
         /// <summary>
         /// The ADDRESS_AND_SIZE_TO_SPAN_PAGES macro takes a virtual address and size and returns the number of pages spanned by the size.
         /// </summary>
+        /// <param name="va">Virtual Address to check.</param>
+        /// <param name="size">Size of Memory Chunk spanned by this virtual address.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected static uint ADDRESS_AND_SIZE_TO_SPAN_PAGES(ulong va, uint size)
         {
@@ -456,6 +465,8 @@ namespace VmmFrost
         /// The BYTE_OFFSET macro takes a virtual address and returns the byte offset
         /// of that address within the page.
         /// </summary>
+        /// <param name="va">Virtual Address to get the byte offset of.</param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected static uint BYTE_OFFSET(ulong va)
         {

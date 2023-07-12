@@ -35,15 +35,18 @@
                 round.Run(mem);
             }
         }
+
         /// <summary>
         /// (Base)
         /// Add scatter read rounds to the operation. Each round is a successive scatter read, you may need multiple
         /// rounds if you have reads dependent on earlier scatter reads result(s).
         /// </summary>
-        /// <returns>ScatterReadRound object.</returns>
-        public virtual ScatterReadRound AddRound(bool useCache = true)
+        /// <param name="pid">Process ID to read from.</param>
+        /// <param name="useCache">Use caching for this read (recommended).</param>
+        /// <returns></returns>
+        public virtual ScatterReadRound AddRound(uint pid, bool useCache = true)
         {
-            var round = new ScatterReadRound(_results, useCache);
+            var round = new ScatterReadRound(pid, _results, useCache);
             Rounds.Add(round);
             return round;
         }

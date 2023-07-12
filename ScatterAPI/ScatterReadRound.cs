@@ -8,11 +8,17 @@ namespace VmmFrost.ScatterAPI
     /// </summary>
     public class ScatterReadRound
     {
+        private readonly uint _pid;
         private readonly bool _useCache;
         protected Dictionary<int, Dictionary<int, IScatterEntry>> Results { get; }
         protected List<IScatterEntry> Entries { get; } = new();
-        public ScatterReadRound(Dictionary<int, Dictionary<int, IScatterEntry>> results, bool useCache)
+
+        /// <summary>
+        /// Do not use this constructor directly. Call .AddRound() from the ScatterReadMap.
+        /// </summary>
+        public ScatterReadRound(uint pid, Dictionary<int, Dictionary<int, IScatterEntry>> results, bool useCache)
         {
+            _pid = pid;
             Results = results;
             _useCache = useCache;
         }
@@ -29,7 +35,7 @@ namespace VmmFrost.ScatterAPI
         /// Type). You canc pass a ScatterReadEntry from an earlier round and it will use the Result.</param>
         /// <param name="offset">Optional offset to add to address (usually in the event that you pass a
         /// ScatterReadEntry to the Addr field).</param>
-        /// <returns></returns>
+        /// <returns>The newly created ScatterReadEntry.</returns>
         public virtual ScatterReadEntry<T> AddEntry<T>(int index, int id, object addr, object size = null, uint offset = 0x0)
         {
             var entry = new ScatterReadEntry<T>()
@@ -50,7 +56,7 @@ namespace VmmFrost.ScatterAPI
         /// </summary>
         internal void Run(MemDMA mem)
         {
-            mem.ReadScatter(CollectionsMarshal.AsSpan(Entries), _useCache);
+            mem.ReadScatter(_pid, CollectionsMarshal.AsSpan(Entries), _useCache);
         }
     }
 }

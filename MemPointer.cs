@@ -28,7 +28,7 @@ namespace VmmFrost
         /// <summary>
         /// Convert to string format.
         /// </summary>
-        /// <returns>Pointer Address represented in Hex.</returns>
+        /// <returns>Pointer Address represented in Upper-Case Hex.</returns>
         public readonly override string ToString() => Va.ToString("X");
     }
 }
