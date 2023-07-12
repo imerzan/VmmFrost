@@ -14,7 +14,7 @@ using System.Collections.Generic;
  *  (c) Ulf Frisk, 2020-2023
  *  Author: Ulf Frisk, pcileech@frizk.net
  *  
- *  Version 5.4
+ *  Version 5.6.2
  *  
  */
 
@@ -29,76 +29,76 @@ namespace vmmsharp
 
     public static class lc
     {
-        public static ulong OPT_CORE_PRINTF_ENABLE = 0x4000000100000000;
-        public static ulong OPT_CORE_VERBOSE = 0x4000000200000000;
-        public static ulong OPT_CORE_VERBOSE_EXTRA = 0x4000000300000000;
-        public static ulong OPT_CORE_VERBOSE_EXTRA_TLP = 0x4000000400000000;
-        public static ulong OPT_CORE_VERSION_MAJOR = 0x4000000500000000;
-        public static ulong OPT_CORE_VERSION_MINOR = 0x4000000600000000;
-        public static ulong OPT_CORE_VERSION_REVISION = 0x4000000700000000;
-        public static ulong OPT_CORE_ADDR_MAX = 0x1000000800000000;
-        public static ulong VMMDLL_OPT_CORE_LEECHCORE_HANDLE = 0x4000001000000000;
+        public const ulong OPT_CORE_PRINTF_ENABLE =            0x4000000100000000;
+        public const ulong OPT_CORE_VERBOSE =                  0x4000000200000000;
+        public const ulong OPT_CORE_VERBOSE_EXTRA =            0x4000000300000000;
+        public const ulong OPT_CORE_VERBOSE_EXTRA_TLP =        0x4000000400000000;
+        public const ulong OPT_CORE_VERSION_MAJOR =            0x4000000500000000;
+        public const ulong OPT_CORE_VERSION_MINOR =            0x4000000600000000;
+        public const ulong OPT_CORE_VERSION_REVISION =         0x4000000700000000;
+        public const ulong OPT_CORE_ADDR_MAX =                 0x1000000800000000;
+        public const ulong VMMDLL_OPT_CORE_LEECHCORE_HANDLE =  0x4000001000000000;
 
-        public static ulong OPT_MEMORYINFO_VALID = 0x0200000100000000;
-        public static ulong OPT_MEMORYINFO_FLAG_32BIT = 0x0200000300000000;
-        public static ulong OPT_MEMORYINFO_FLAG_PAE = 0x0200000400000000;
-        public static ulong OPT_MEMORYINFO_OS_VERSION_MINOR = 0x0200000500000000;
-        public static ulong OPT_MEMORYINFO_OS_VERSION_MAJOR = 0x0200000600000000;
-        public static ulong OPT_MEMORYINFO_OS_DTB = 0x0200000700000000;
-        public static ulong OPT_MEMORYINFO_OS_PFN = 0x0200000800000000;
-        public static ulong OPT_MEMORYINFO_OS_PsLoadedModuleList = 0x0200000900000000;
-        public static ulong OPT_MEMORYINFO_OS_PsActiveProcessHead = 0x0200000a00000000;
-        public static ulong OPT_MEMORYINFO_OS_MACHINE_IMAGE_TP = 0x0200000b00000000;
-        public static ulong OPT_MEMORYINFO_OS_NUM_PROCESSORS = 0x0200000c00000000;
-        public static ulong OPT_MEMORYINFO_OS_SYSTEMTIME = 0x0200000d00000000;
-        public static ulong OPT_MEMORYINFO_OS_UPTIME = 0x0200000e00000000;
-        public static ulong OPT_MEMORYINFO_OS_KERNELBASE = 0x0200000f00000000;
-        public static ulong OPT_MEMORYINFO_OS_KERNELHINT = 0x0200001000000000;
-        public static ulong OPT_MEMORYINFO_OS_KdDebuggerDataBlock = 0x0200001100000000;
+        public const ulong OPT_MEMORYINFO_VALID =              0x0200000100000000;
+        public const ulong OPT_MEMORYINFO_FLAG_32BIT =         0x0200000300000000;
+        public const ulong OPT_MEMORYINFO_FLAG_PAE =           0x0200000400000000;
+        public const ulong OPT_MEMORYINFO_OS_VERSION_MINOR =   0x0200000500000000;
+        public const ulong OPT_MEMORYINFO_OS_VERSION_MAJOR =   0x0200000600000000;
+        public const ulong OPT_MEMORYINFO_OS_DTB =             0x0200000700000000;
+        public const ulong OPT_MEMORYINFO_OS_PFN =             0x0200000800000000;
+        public const ulong OPT_MEMORYINFO_OS_PsLoadedModuleList = 0x0200000900000000;
+        public const ulong OPT_MEMORYINFO_OS_PsActiveProcessHead = 0x0200000a00000000;
+        public const ulong OPT_MEMORYINFO_OS_MACHINE_IMAGE_TP = 0x0200000b00000000;
+        public const ulong OPT_MEMORYINFO_OS_NUM_PROCESSORS =  0x0200000c00000000;
+        public const ulong OPT_MEMORYINFO_OS_SYSTEMTIME =      0x0200000d00000000;
+        public const ulong OPT_MEMORYINFO_OS_UPTIME =          0x0200000e00000000;
+        public const ulong OPT_MEMORYINFO_OS_KERNELBASE =      0x0200000f00000000;
+        public const ulong OPT_MEMORYINFO_OS_KERNELHINT =      0x0200001000000000;
+        public const ulong OPT_MEMORYINFO_OS_KdDebuggerDataBlock = 0x0200001100000000;
 
-        public static ulong OPT_FPGA_PROBE_MAXPAGES = 0x0300000100000000;
-        public static ulong OPT_FPGA_MAX_SIZE_RX = 0x0300000300000000;
-        public static ulong OPT_FPGA_MAX_SIZE_TX = 0x0300000400000000;
-        public static ulong OPT_FPGA_DELAY_PROBE_READ = 0x0300000500000000;
-        public static ulong OPT_FPGA_DELAY_PROBE_WRITE = 0x0300000600000000;
-        public static ulong OPT_FPGA_DELAY_WRITE = 0x0300000700000000;
-        public static ulong OPT_FPGA_DELAY_READ = 0x0300000800000000;
-        public static ulong OPT_FPGA_RETRY_ON_ERROR = 0x0300000900000000;
-        public static ulong OPT_FPGA_DEVICE_ID = 0x0300008000000000;
-        public static ulong OPT_FPGA_FPGA_ID = 0x0300008100000000;
-        public static ulong OPT_FPGA_VERSION_MAJOR = 0x0300008200000000;
-        public static ulong OPT_FPGA_VERSION_MINOR = 0x0300008300000000;
-        public static ulong OPT_FPGA_ALGO_TINY = 0x0300008400000000;
-        public static ulong OPT_FPGA_ALGO_SYNCHRONOUS = 0x0300008500000000;
+        public const ulong OPT_FPGA_PROBE_MAXPAGES =           0x0300000100000000;
+        public const ulong OPT_FPGA_MAX_SIZE_RX =              0x0300000300000000;
+        public const ulong OPT_FPGA_MAX_SIZE_TX =              0x0300000400000000;
+        public const ulong OPT_FPGA_DELAY_PROBE_READ =         0x0300000500000000;
+        public const ulong OPT_FPGA_DELAY_PROBE_WRITE =        0x0300000600000000;
+        public const ulong OPT_FPGA_DELAY_WRITE =              0x0300000700000000;
+        public const ulong OPT_FPGA_DELAY_READ =               0x0300000800000000;
+        public const ulong OPT_FPGA_RETRY_ON_ERROR =           0x0300000900000000;
+        public const ulong OPT_FPGA_DEVICE_ID =                0x0300008000000000;
+        public const ulong OPT_FPGA_FPGA_ID =                  0x0300008100000000;
+        public const ulong OPT_FPGA_VERSION_MAJOR =            0x0300008200000000;
+        public const ulong OPT_FPGA_VERSION_MINOR =            0x0300008300000000;
+        public const ulong OPT_FPGA_ALGO_TINY =                0x0300008400000000;
+        public const ulong OPT_FPGA_ALGO_SYNCHRONOUS =         0x0300008500000000;
 
-        public static ulong CMD_FPGA_WRITE_TLP = 0x0000010100000000;
-        public static ulong CMD_FPGA_LISTEN_TLP = 0x0000010200000000;
-        public static ulong CMD_FPGA_PCIECFGSPACE = 0x0000010300000000;
-        public static ulong CMD_FPGA_CFGREGPCIE = 0x0000010400000000;
-        public static ulong CMD_FPGA_CFGREGCFG = 0x0000010500000000;
-        public static ulong CMD_FPGA_CFGREGDRP = 0x0000010600000000;
-        public static ulong CMD_FPGA_CFGREGCFG_MARKWR = 0x0000010700000000;
-        public static ulong CMD_FPGA_CFGREGPCIE_MARKWR = 0x0000010800000000;
-        public static ulong CMD_FPGA_PCIECFGSPACE_WR = 0x0000010900000000;
-        public static ulong CMD_FPGA_CFGREG_DEBUGPRINT = 0x0000010a00000000;
-        public static ulong CMD_FPGA_PROBE = 0x0000010b00000000;
+        public const ulong CMD_FPGA_WRITE_TLP =                0x0000010100000000;
+        public const ulong CMD_FPGA_LISTEN_TLP =               0x0000010200000000;
+        public const ulong CMD_FPGA_PCIECFGSPACE =             0x0000010300000000;
+        public const ulong CMD_FPGA_CFGREGPCIE =               0x0000010400000000;
+        public const ulong CMD_FPGA_CFGREGCFG =                0x0000010500000000;
+        public const ulong CMD_FPGA_CFGREGDRP =                0x0000010600000000;
+        public const ulong CMD_FPGA_CFGREGCFG_MARKWR =         0x0000010700000000;
+        public const ulong CMD_FPGA_CFGREGPCIE_MARKWR =        0x0000010800000000;
+        public const ulong CMD_FPGA_PCIECFGSPACE_WR =          0x0000010900000000;
+        public const ulong CMD_FPGA_CFGREG_DEBUGPRINT =        0x0000010a00000000;
+        public const ulong CMD_FPGA_PROBE =                    0x0000010b00000000;
 
-        public static ulong CMD_FILE_DUMPHEADER_GET = 0x0000020100000000;
+        public const ulong CMD_FILE_DUMPHEADER_GET =           0x0000020100000000;
 
-        public static ulong CMD_STATISTICS_GET = 0x4000010000000000;
-        public static ulong CMD_MEMMAP_GET = 0x4000020000000000;
-        public static ulong CMD_MEMMAP_SET = 0x4000030000000000;
+        public const ulong CMD_STATISTICS_GET =                0x4000010000000000;
+        public const ulong CMD_MEMMAP_GET =                    0x4000020000000000;
+        public const ulong CMD_MEMMAP_SET =                    0x4000030000000000;
 
-        public static ulong CMD_AGENT_EXEC_PYTHON = 0x8000000100000000;
-        public static ulong CMD_AGENT_EXIT_PROCESS = 0x8000000200000000;
+        public const ulong CMD_AGENT_EXEC_PYTHON =             0x8000000100000000;
+        public const ulong CMD_AGENT_EXIT_PROCESS =            0x8000000200000000;
 
-        public static uint CONFIG_VERSION = 0xc0fd0002;
-        public static uint CONFIG_ERRORINFO_VERSION = 0xc0fe0001;
+        public const uint CONFIG_VERSION =                     0xc0fd0002;
+        public const uint CONFIG_ERRORINFO_VERSION =           0xc0fe0001;
 
-        public static uint CONFIG_PRINTF_ENABLED = 0x01;
-        public static uint CONFIG_PRINTF_V = 0x02;
-        public static uint CONFIG_PRINTF_VV = 0x04;
-        public static uint CONFIG_PRINTF_VVV = 0x08;
+        public const uint CONFIG_PRINTF_ENABLED =              0x01;
+        public const uint CONFIG_PRINTF_V =                    0x02;
+        public const uint CONFIG_PRINTF_VV =                   0x04;
+        public const uint CONFIG_PRINTF_VVV =                  0x08;
 
         [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         public struct CONFIG
@@ -126,21 +126,20 @@ namespace vmmsharp
         public static unsafe ulong Create(ref CONFIG pLcCreateConfig, out CONFIG_ERRORINFO ConfigErrorInfo)
         {
             IntPtr pLcErrorInfo;
-            int cbERROR_INFO = System.Runtime.InteropServices.Marshal.SizeOf(typeof(lci.LC_CONFIG_ERRORINFO));
+            int cbERROR_INFO = System.Runtime.InteropServices.Marshal.SizeOf<lci.LC_CONFIG_ERRORINFO>();
             ulong hLC = lci.LcCreateEx(ref pLcCreateConfig, out pLcErrorInfo);
             long vaLcCreateErrorInfo = pLcErrorInfo.ToInt64();
             ConfigErrorInfo = new CONFIG_ERRORINFO();
             ConfigErrorInfo.strUserText = "";
-            if (vaLcCreateErrorInfo == 0)
-            {
+            if (vaLcCreateErrorInfo == 0) {
                 return hLC;
             }
             lci.LC_CONFIG_ERRORINFO e = Marshal.PtrToStructure<lci.LC_CONFIG_ERRORINFO>(pLcErrorInfo);
-            if (e.dwVersion == CONFIG_ERRORINFO_VERSION)
+            if(e.dwVersion == CONFIG_ERRORINFO_VERSION)
             {
                 ConfigErrorInfo.fValid = true;
                 ConfigErrorInfo.fUserInputRequest = e.fUserInputRequest;
-                if (e.cwszUserText > 0)
+                if(e.cwszUserText > 0)
                 {
                     ConfigErrorInfo.strUserText = Marshal.PtrToStringUni((System.IntPtr)(vaLcCreateErrorInfo + cbERROR_INFO));
                 }
@@ -214,7 +213,7 @@ namespace vmmsharp
             IntPtr pMEM, pMEM_f, pMEM_qwA, pMEM_pb, pppMEMs;
             for (i = 0; i < MEMs.Length; i++)
             {
-                if ((MEMs[i].pb == null) || (MEMs[i].pb.Length != 0x1000))
+                if((MEMs[i].pb == null) || (MEMs[i].pb.Length != 0x1000))
                 {
                     return;
                 }
@@ -257,20 +256,19 @@ namespace vmmsharp
             uint cbDataOut;
             IntPtr PtrDataOut;
             DataOut = null;
-            if (DataIn == null)
+            if(DataIn == null)
             {
                 result = lci.LcCommand(hLC, fOption, 0, null, out PtrDataOut, out cbDataOut);
-            }
-            else
+            } else
             {
                 fixed (byte* pbDataIn = DataIn)
                 {
                     result = lci.LcCommand(hLC, fOption, (uint)DataIn.Length, pbDataIn, out PtrDataOut, out cbDataOut);
                 }
             }
-            if (!result) { return false; }
+            if(!result) { return false; }
             DataOut = new byte[cbDataOut];
-            if (cbDataOut > 0)
+            if(cbDataOut > 0)
             {
                 Marshal.Copy(PtrDataOut, DataOut, 0, (int)cbDataOut);
                 lci.LcMemFree(PtrDataOut);
@@ -285,46 +283,49 @@ namespace vmmsharp
         // CORE FUNCTIONALITY BELOW:
         //---------------------------------------------------------------------
 
-        public static ulong OPT_CORE_PRINTF_ENABLE = 0x4000000100000000;  // RW
-        public static ulong OPT_CORE_VERBOSE = 0x4000000200000000;  // RW
-        public static ulong OPT_CORE_VERBOSE_EXTRA = 0x4000000300000000;  // RW
-        public static ulong OPT_CORE_VERBOSE_EXTRA_TLP = 0x4000000400000000;  // RW
-        public static ulong OPT_CORE_MAX_NATIVE_ADDRESS = 0x4000000800000000;  // R
+        public const ulong OPT_CORE_PRINTF_ENABLE =             0x4000000100000000;  // RW
+        public const ulong OPT_CORE_VERBOSE =                   0x4000000200000000;  // RW
+        public const ulong OPT_CORE_VERBOSE_EXTRA =             0x4000000300000000;  // RW
+        public const ulong OPT_CORE_VERBOSE_EXTRA_TLP =         0x4000000400000000;  // RW
+        public const ulong OPT_CORE_MAX_NATIVE_ADDRESS =        0x4000000800000000;  // R
+        public const ulong OPT_CORE_LEECHCORE_HANDLE =          0x4000001000000000;  // R - underlying leechcore handle (do not close).
 
-        public static ulong OPT_CORE_SYSTEM = 0x2000000100000000;  // R
-        public static ulong OPT_CORE_MEMORYMODEL = 0x2000000200000000;  // R
+        public const ulong OPT_CORE_SYSTEM =                    0x2000000100000000;  // R
+        public const ulong OPT_CORE_MEMORYMODEL =               0x2000000200000000;  // R
 
-        public static ulong OPT_CONFIG_IS_REFRESH_ENABLED = 0x2000000300000000;  // R - 1/0
-        public static ulong OPT_CONFIG_TICK_PERIOD = 0x2000000400000000;  // RW - base tick period in ms
-        public static ulong OPT_CONFIG_READCACHE_TICKS = 0x2000000500000000;  // RW - memory cache validity period (in ticks)
-        public static ulong OPT_CONFIG_TLBCACHE_TICKS = 0x2000000600000000;  // RW - page table (tlb) cache validity period (in ticks)
-        public static ulong OPT_CONFIG_PROCCACHE_TICKS_PARTIAL = 0x2000000700000000; // RW - process refresh (partial) period (in ticks)
-        public static ulong OPT_CONFIG_PROCCACHE_TICKS_TOTAL = 0x2000000800000000;  // RW - process refresh (full) period (in ticks)
-        public static ulong OPT_CONFIG_VMM_VERSION_MAJOR = 0x2000000900000000;  // R
-        public static ulong OPT_CONFIG_VMM_VERSION_MINOR = 0x2000000A00000000;  // R
-        public static ulong OPT_CONFIG_VMM_VERSION_REVISION = 0x2000000B00000000;  // R
-        public static ulong OPT_CONFIG_STATISTICS_FUNCTIONCALL = 0x2000000C00000000; // RW - enable function call statistics (.status/statistics_fncall file)
-        public static ulong OPT_CONFIG_IS_PAGING_ENABLED = 0x2000000D00000000;  // RW - 1/0
+        public const ulong OPT_CONFIG_IS_REFRESH_ENABLED =      0x2000000300000000;  // R - 1/0
+        public const ulong OPT_CONFIG_TICK_PERIOD =             0x2000000400000000;  // RW - base tick period in ms
+        public const ulong OPT_CONFIG_READCACHE_TICKS =         0x2000000500000000;  // RW - memory cache validity period (in ticks)
+        public const ulong OPT_CONFIG_TLBCACHE_TICKS =          0x2000000600000000;  // RW - page table (tlb) cache validity period (in ticks)
+        public const ulong OPT_CONFIG_PROCCACHE_TICKS_PARTIAL = 0x2000000700000000;  // RW - process refresh (partial) period (in ticks)
+        public const ulong OPT_CONFIG_PROCCACHE_TICKS_TOTAL =   0x2000000800000000;  // RW - process refresh (full) period (in ticks)
+        public const ulong OPT_CONFIG_VMM_VERSION_MAJOR =       0x2000000900000000;  // R
+        public const ulong OPT_CONFIG_VMM_VERSION_MINOR =       0x2000000A00000000;  // R
+        public const ulong OPT_CONFIG_VMM_VERSION_REVISION =    0x2000000B00000000;  // R
+        public const ulong OPT_CONFIG_STATISTICS_FUNCTIONCALL = 0x2000000C00000000;  // RW - enable function call statistics (.status/statistics_fncall file)
+        public const ulong OPT_CONFIG_IS_PAGING_ENABLED =       0x2000000D00000000;  // RW - 1/0
+        public const ulong OPT_CONFIG_DEBUG =                   0x2000000E00000000;  // W
+        public const ulong OPT_CONFIG_YARA_RULES =              0x2000000F00000000;  // R
 
-        public static ulong OPT_WIN_VERSION_MAJOR = 0x2000010100000000;  // R
-        public static ulong OPT_WIN_VERSION_MINOR = 0x2000010200000000;  // R
-        public static ulong OPT_WIN_VERSION_BUILD = 0x2000010300000000;  // R
+        public const ulong OPT_WIN_VERSION_MAJOR =              0x2000010100000000;  // R
+        public const ulong OPT_WIN_VERSION_MINOR =              0x2000010200000000;  // R
+        public const ulong OPT_WIN_VERSION_BUILD =              0x2000010300000000;  // R
+        public const ulong OPT_WIN_SYSTEM_UNIQUE_ID =           0x2000010400000000;  // R
 
-        public static ulong OPT_FORENSIC_MODE = 0x2000020100000000;  // RW - enable/retrieve forensic mode type [0-4].
+        public const ulong OPT_FORENSIC_MODE =                  0x2000020100000000;  // RW - enable/retrieve forensic mode type [0-4].
 
-        public static ulong OPT_REFRESH_ALL = 0x2001ffff00000000;  // W - refresh all caches
-        public static ulong OPT_REFRESH_FREQ_FAST = 0x2001040000000000;  // W - refresh fast frequency (including partial process listings)
-        public static ulong OPT_REFRESH_FREQ_MEDIUM = 0x2001000100000000;  // W - refresh medium frequency (including full process listings)
-        public static ulong OPT_REFRESH_FREQ_SLOW = 0x2001001000000000;  // W - refresh slow frequency (including registry)
-        public static ulong OPT_REFRESH_READ = 0x2001000200000000;  // W - refresh physical read cache
-        public static ulong OPT_REFRESH_TLB = 0x2001000400000000;  // W - refresh page table (TLB) cache
-        public static ulong OPT_REFRESH_PAGING = 0x2001000800000000;  // W - refresh virtual memory 'paging' cache
-        public static ulong OPT_REFRESH_USER = 0x2001002000000000;  // W
-        public static ulong OPT_REFRESH_PHYSMEMMAP = 0x2001004000000000;  // W
-        public static ulong OPT_REFRESH_PFN = 0x2001008000000000;  // W
-        public static ulong OPT_REFRESH_OBJ = 0x2001010000000000;  // W
-        public static ulong OPT_REFRESH_NET = 0x2001020000000000;  // W
+        // REFRESH OPTIONS:
+        public const ulong OPT_REFRESH_ALL =                    0x2001ffff00000000;  // W - refresh all caches
+        public const ulong OPT_REFRESH_FREQ_MEM =               0x2001100000000000;  // W - refresh memory cache (excl. TLB) [fully]
+        public const ulong OPT_REFRESH_FREQ_MEM_PARTIAL =       0x2001000200000000;  // W - refresh memory cache (excl. TLB) [partial 33%/call]
+        public const ulong OPT_REFRESH_FREQ_TLB =               0x2001080000000000;  // W - refresh page table (TLB) cache [fully]
+        public const ulong OPT_REFRESH_FREQ_TLB_PARTIAL =       0x2001000400000000;  // W - refresh page table (TLB) cache [partial 33%/call]
+        public const ulong OPT_REFRESH_FREQ_FAST =              0x2001040000000000;  // W - refresh fast frequency - incl. partial process refresh
+        public const ulong OPT_REFRESH_FREQ_MEDIUM =            0x2001000100000000;  // W - refresh medium frequency - incl. full process refresh
+        public const ulong OPT_REFRESH_FREQ_SLOW =              0x2001001000000000;  // W - refresh slow frequency.
 
+        // PROCESS OPTIONS: [LO-DWORD: Process PID]
+        public const ulong OPT_PROCESS_DTB = 0x2002000100000000;  // W - force set process directory table base.
 
         public enum MEMORYMODEL_TP
         {
@@ -353,7 +354,7 @@ namespace vmmsharp
         private static unsafe IntPtr Initialize(out lc.CONFIG_ERRORINFO ConfigErrorInfo, params string[] args)
         {
             IntPtr pLcErrorInfo;
-            int cbERROR_INFO = System.Runtime.InteropServices.Marshal.SizeOf(typeof(lci.LC_CONFIG_ERRORINFO));
+            int cbERROR_INFO = System.Runtime.InteropServices.Marshal.SizeOf<lci.LC_CONFIG_ERRORINFO>();
             IntPtr hVMM = vmmi.VMMDLL_InitializeEx(args.Length, args, out pLcErrorInfo);
             long vaLcCreateErrorInfo = pLcErrorInfo.ToInt64();
             ConfigErrorInfo = new lc.CONFIG_ERRORINFO();
@@ -505,15 +506,15 @@ namespace vmmsharp
         // MEMORY READ/WRITE FUNCTIONALITY BELOW:
         //---------------------------------------------------------------------
 
-        public static uint PID_PROCESS_WITH_KERNELMEMORY = 0x80000000;      // Combine with dwPID to enable process kernel memory (NB! use with extreme care).
+        public const uint PID_PROCESS_WITH_KERNELMEMORY = 0x80000000;      // Combine with dwPID to enable process kernel memory (NB! use with extreme care).
 
-        public static uint FLAG_NOCACHE = 0x0001;  // do not use the data cache (force reading from memory acquisition device)
-        public static uint FLAG_ZEROPAD_ON_FAIL = 0x0002;  // zero pad failed physical memory reads and report success if read within range of physical memory.
-        public static uint FLAG_FORCECACHE_READ = 0x0008;  // force use of cache - fail non-cached pages - only valid for reads, invalid with VMM_FLAG_NOCACHE/VMM_FLAG_ZEROPAD_ON_FAIL.
-        public static uint FLAG_NOPAGING = 0x0010;  // do not try to retrieve memory from paged out memory from pagefile/compressed (even if possible)
-        public static uint FLAG_NOPAGING_IO = 0x0020;  // do not try to retrieve memory from paged out memory if read would incur additional I/O (even if possible).
-        public static uint FLAG_NOCACHEPUT = 0x0100;  // do not write back to the data cache upon successful read from memory acquisition device.
-        public static uint FLAG_CACHE_RECENT_ONLY = 0x0200;  // only fetch from the most recent active cache region when reading.
+        public const uint FLAG_NOCACHE = 0x0001;  // do not use the data cache (force reading from memory acquisition device)
+        public const uint FLAG_ZEROPAD_ON_FAIL = 0x0002;  // zero pad failed physical memory reads and report success if read within range of physical memory.
+        public const uint FLAG_FORCECACHE_READ = 0x0008;  // force use of cache - fail non-cached pages - only valid for reads, invalid with VMM_FLAG_NOCACHE/VMM_FLAG_ZEROPAD_ON_FAIL.
+        public const uint FLAG_NOPAGING = 0x0010;  // do not try to retrieve memory from paged out memory from pagefile/compressed (even if possible)
+        public const uint FLAG_NOPAGING_IO = 0x0020;  // do not try to retrieve memory from paged out memory if read would incur additional I/O (even if possible).
+        public const uint FLAG_NOCACHEPUT = 0x0100;  // do not write back to the data cache upon successful read from memory acquisition device.
+        public const uint FLAG_CACHE_RECENT_ONLY = 0x0200;  // only fetch from the most recent active cache region when reading.
 
         public unsafe MEM_SCATTER[] MemReadScatter(uint pid, uint flags, params ulong[] qwA)
         {
@@ -714,11 +715,11 @@ namespace vmmsharp
         public unsafe PROCESS_INFORMATION ProcessGetInformation(uint pid)
         {
             bool result;
-            ulong cbENTRY = (ulong)System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_PROCESS_INFORMATION));
+            ulong cbENTRY = (ulong)System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_PROCESS_INFORMATION>();
             fixed (byte* pb = new byte[cbENTRY])
             {
-                Marshal.WriteInt64(new IntPtr(pb + 0), (long)vmmi.VMMDLL_PROCESS_INFORMATION_MAGIC);
-                Marshal.WriteInt16(new IntPtr(pb + 8), (short)vmmi.VMMDLL_PROCESS_INFORMATION_VERSION);
+                Marshal.WriteInt64(new IntPtr(pb + 0), unchecked((long)vmmi.VMMDLL_PROCESS_INFORMATION_MAGIC));
+                Marshal.WriteInt16(new IntPtr(pb + 8), unchecked((short)vmmi.VMMDLL_PROCESS_INFORMATION_VERSION));
                 result = vmmi.VMMDLL_ProcessGetInformation(hVMM, pid, pb, ref cbENTRY);
                 if (!result) { return new PROCESS_INFORMATION(); }
                 vmmi.VMMDLL_PROCESS_INFORMATION n = Marshal.PtrToStructure<vmmi.VMMDLL_PROCESS_INFORMATION>((System.IntPtr)pb);
@@ -747,9 +748,9 @@ namespace vmmsharp
             }
         }
 
-        public static uint VMMDLL_PROCESS_INFORMATION_OPT_STRING_PATH_KERNEL = 1;
-        public static uint VMMDLL_PROCESS_INFORMATION_OPT_STRING_PATH_USER_IMAGE = 2;
-        public static uint VMMDLL_PROCESS_INFORMATION_OPT_STRING_CMDLINE = 3;
+        public const uint VMMDLL_PROCESS_INFORMATION_OPT_STRING_PATH_KERNEL = 1;
+        public const uint VMMDLL_PROCESS_INFORMATION_OPT_STRING_PATH_USER_IMAGE = 2;
+        public const uint VMMDLL_PROCESS_INFORMATION_OPT_STRING_CMDLINE = 3;
 
         public unsafe string ProcessGetInformationString(uint pid, uint fOptionString)
         {
@@ -785,8 +786,7 @@ namespace vmmsharp
         {
             string[] PE_DATA_DIRECTORIES = new string[16] { "EXPORT", "IMPORT", "RESOURCE", "EXCEPTION", "SECURITY", "BASERELOC", "DEBUG", "ARCHITECTURE", "GLOBALPTR", "TLS", "LOAD_CONFIG", "BOUND_IMPORT", "IAT", "DELAY_IMPORT", "COM_DESCRIPTOR", "RESERVED" };
             bool result;
-            uint cData;
-            uint cbENTRY = (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_IMAGE_DATA_DIRECTORY));
+            uint cbENTRY = (uint)System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_IMAGE_DATA_DIRECTORY>();
             fixed (byte* pb = new byte[16 * cbENTRY])
             {
                 result = vmmi.VMMDLL_ProcessGetDirectories(hVMM, pid, wszModule, pb);
@@ -809,7 +809,7 @@ namespace vmmsharp
         {
             bool result;
             uint cData;
-            uint cbENTRY = (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_IMAGE_SECTION_HEADER));
+            uint cbENTRY = (uint)System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_IMAGE_SECTION_HEADER>();
             result = vmmi.VMMDLL_ProcessGetSections(hVMM, pid, wszModule, null, 0, out cData);
             if (!result || (cData == 0)) { return new IMAGE_SECTION_HEADER[0]; }
             fixed (byte* pb = new byte[cData * cbENTRY])
@@ -860,7 +860,7 @@ namespace vmmsharp
             fixed (byte* pb = data)
             {
                 bool result = vmmi.VMMDLL_PdbLoad(hVMM, pid, vaModuleBase, pb);
-                if (!result) { return false; }
+                if(!result) { return false; }
                 szModuleName = Encoding.UTF8.GetString(data);
                 szModuleName = szModuleName.Substring(0, szModuleName.IndexOf((char)0));
             }
@@ -903,10 +903,10 @@ namespace vmmsharp
         // "MAP" FUNCTIONALITY BELOW:
         //---------------------------------------------------------------------
 
-        public static ulong MEMMAP_FLAG_PAGE_W = 0x0000000000000002;
-        public static ulong MEMMAP_FLAG_PAGE_NS = 0x0000000000000004;
-        public static ulong MEMMAP_FLAG_PAGE_NX = 0x8000000000000000;
-        public static ulong MEMMAP_FLAG_PAGE_MASK = 0x8000000000000006;
+        public const ulong MEMMAP_FLAG_PAGE_W =    0x0000000000000002;
+        public const ulong MEMMAP_FLAG_PAGE_NS =   0x0000000000000004;
+        public const ulong MEMMAP_FLAG_PAGE_NX =   0x8000000000000000;
+        public const ulong MEMMAP_FLAG_PAGE_MASK = 0x8000000000000006;
 
         public struct MAP_PTEENTRY
         {
@@ -968,10 +968,10 @@ namespace vmmsharp
             public ulong vaVadBase;
         }
 
-        public static uint MAP_MODULEENTRY_TP_NORMAL = 0;
-        public static uint VMMDLL_MODULE_TP_DATA = 1;
-        public static uint VMMDLL_MODULE_TP_NOTLINKED = 2;
-        public static uint VMMDLL_MODULE_TP_INJECTED = 3;
+        public const uint MAP_MODULEENTRY_TP_NORMAL    = 0;
+        public const uint VMMDLL_MODULE_TP_DATA        = 1;
+        public const uint VMMDLL_MODULE_TP_NOTLINKED   = 2;
+        public const uint VMMDLL_MODULE_TP_INJECTED    = 3;
 
         public struct MODULEENTRY_DEBUGINFO
         {
@@ -1025,7 +1025,7 @@ namespace vmmsharp
 
         public struct MAP_EATINFO
         {
-            public bool fValid;
+            public bool fValid; 
             public ulong vaModuleBase;
             public ulong vaAddressOfFunctions;
             public ulong vaAddressOfNames;
@@ -1108,6 +1108,7 @@ namespace vmmsharp
             public ulong vaStackBaseKernel;
             public ulong vaStackLimitKernel;
             public ulong vaTrapFrame;
+            public ulong vaImpersonationToken;
             public ulong vaRIP;
             public ulong vaRSP;
             public ulong qwAffinity;
@@ -1241,8 +1242,8 @@ namespace vmmsharp
 
         public unsafe MAP_PTEENTRY[] Map_GetPte(uint pid, bool fIdentifyModules = true)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_PTE));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_PTEENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_PTE>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_PTEENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_PTEENTRY[] m = new MAP_PTEENTRY[0];
             if (!vmmi.VMMDLL_Map_GetPte(hVMM, pid, fIdentifyModules, out pMap)) { goto fail; }
@@ -1270,8 +1271,8 @@ namespace vmmsharp
 
         public unsafe MAP_VADENTRY[] Map_GetVad(uint pid, bool fIdentifyModules = true)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_VAD));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_VADENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_VAD>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_VADENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_VADENTRY[] m = new MAP_VADENTRY[0];
             if (!vmmi.VMMDLL_Map_GetVad(hVMM, pid, fIdentifyModules, out pMap)) { goto fail; }
@@ -1317,8 +1318,8 @@ namespace vmmsharp
 
         public unsafe MAP_VADEXENTRY[] Map_GetVadEx(uint pid, uint oPages, uint cPages)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_VADEX));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_VADEXENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_VADEX>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_VADEXENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_VADEXENTRY[] m = new MAP_VADEXENTRY[0];
             if (!vmmi.VMMDLL_Map_GetVadEx(hVMM, pid, oPages, cPages, out pMap)) { goto fail; }
@@ -1347,8 +1348,8 @@ namespace vmmsharp
 
         public unsafe MAP_MODULEENTRY[] Map_GetModule(uint pid, bool fExtendedInfo)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_MODULE));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_MODULEENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_MODULE>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_MODULEENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_MODULEENTRY[] m = new MAP_MODULEENTRY[0];
             uint flags = fExtendedInfo ? (uint)0xff : 0;
@@ -1450,8 +1451,8 @@ namespace vmmsharp
 
         public unsafe MAP_UNLOADEDMODULEENTRY[] Map_GetUnloadedModule(uint pid)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_UNLOADEDMODULE));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_UNLOADEDMODULEENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_UNLOADEDMODULE>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_UNLOADEDMODULEENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_UNLOADEDMODULEENTRY[] m = new MAP_UNLOADEDMODULEENTRY[0];
             if (!vmmi.VMMDLL_Map_GetUnloadedModule(hVMM, pid, out pMap)) { goto fail; }
@@ -1479,8 +1480,8 @@ namespace vmmsharp
         public unsafe MAP_EATENTRY[] Map_GetEAT(uint pid, string wszModule, out MAP_EATINFO EatInfo)
         {
             EatInfo = new MAP_EATINFO();
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_EAT));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_EATENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_EAT>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_EATENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_EATENTRY[] m = new MAP_EATENTRY[0];
             if (!vmmi.VMMDLL_Map_GetEAT(hVMM, pid, wszModule, out pMap)) { goto fail; }
@@ -1514,8 +1515,8 @@ namespace vmmsharp
 
         public unsafe MAP_IATENTRY[] Map_GetIAT(uint pid, string wszModule)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_IAT));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_IATENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_IAT>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_IATENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_IATENTRY[] m = new MAP_IATENTRY[0];
             if (!vmmi.VMMDLL_Map_GetIAT(hVMM, pid, wszModule, out pMap)) { goto fail; }
@@ -1546,13 +1547,13 @@ namespace vmmsharp
         public unsafe MAP_HEAP Map_GetHeap(uint pid)
         {
             IntPtr pMap = IntPtr.Zero;
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HEAP));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HEAPENTRY));
-            int cbSEGENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HEAPSEGMENTENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HEAP>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HEAPENTRY>();
+            int cbSEGENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HEAPSEGMENTENTRY>();
             MAP_HEAP Heap;
             Heap.heaps = new MAP_HEAPENTRY[0];
             Heap.segments = new MAP_HEAPSEGMENTENTRY[0];
-            if (!vmmi.VMMDLL_Map_GetHeap(hVMM, pid, out pMap)) { goto fail; }
+            if(!vmmi.VMMDLL_Map_GetHeap(hVMM, pid, out pMap)) { goto fail; }
             vmmi.VMMDLL_MAP_HEAP nM = Marshal.PtrToStructure<vmmi.VMMDLL_MAP_HEAP>(pMap);
             if (nM.dwVersion != vmmi.VMMDLL_MAP_HEAP_VERSION) { goto fail; }
             Heap.heaps = new MAP_HEAPENTRY[nM.cMap];
@@ -1581,12 +1582,11 @@ namespace vmmsharp
         public unsafe MAP_HEAPALLOCENTRY[] Map_GetHeapAlloc(uint pid, ulong vaHeapOrHeapNum)
         {
             IntPtr pHeapAllocMap = IntPtr.Zero;
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HEAPALLOC));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HEAPALLOCENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HEAPALLOC>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HEAPALLOCENTRY>();
             if (!vmmi.VMMDLL_Map_GetHeapAlloc(hVMM, pid, vaHeapOrHeapNum, out pHeapAllocMap)) { return new MAP_HEAPALLOCENTRY[0]; }
             vmmi.VMMDLL_MAP_HEAPALLOC nM = Marshal.PtrToStructure<vmmi.VMMDLL_MAP_HEAPALLOC>(pHeapAllocMap);
-            if (nM.dwVersion != vmmi.VMMDLL_MAP_HEAPALLOC_VERSION)
-            {
+            if (nM.dwVersion != vmmi.VMMDLL_MAP_HEAPALLOC_VERSION) {
                 vmmi.VMMDLL_MemFree((byte*)pHeapAllocMap.ToPointer());
                 return new MAP_HEAPALLOCENTRY[0];
             }
@@ -1604,8 +1604,8 @@ namespace vmmsharp
 
         public unsafe MAP_THREADENTRY[] Map_GetThread(uint pid)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_THREAD));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_THREADENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_THREAD>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_THREADENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_THREADENTRY[] m = new MAP_THREADENTRY[0];
             if (!vmmi.VMMDLL_Map_GetThread(hVMM, pid, out pMap)) { goto fail; }
@@ -1633,6 +1633,7 @@ namespace vmmsharp
                 e.vaStackLimitUser = n.vaStackLimitUser;
                 e.vaStackBaseKernel = n.vaStackBaseKernel;
                 e.vaStackLimitKernel = n.vaStackLimitKernel;
+                e.vaImpersonationToken = n.vaImpersonationToken;
                 e.vaTrapFrame = n.vaTrapFrame;
                 e.vaRIP = n.vaRIP;
                 e.vaRSP = n.vaRSP;
@@ -1650,8 +1651,8 @@ namespace vmmsharp
 
         public unsafe MAP_HANDLEENTRY[] Map_GetHandle(uint pid)
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HANDLE));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_HANDLEENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HANDLE>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_HANDLEENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_HANDLEENTRY[] m = new MAP_HANDLEENTRY[0];
             if (!vmmi.VMMDLL_Map_GetHandle(hVMM, pid, out pMap)) { goto fail; }
@@ -1683,8 +1684,8 @@ namespace vmmsharp
 
         public unsafe MAP_NETENTRY[] Map_GetNet()
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_NET));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_NETENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_NET>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_NETENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_NETENTRY[] m = new MAP_NETENTRY[0];
             if (!vmmi.VMMDLL_Map_GetNet(hVMM, out pMap)) { goto fail; }
@@ -1719,8 +1720,8 @@ namespace vmmsharp
 
         public unsafe MAP_PHYSMEMENTRY[] Map_GetPhysMem()
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_PHYSMEM));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_PHYSMEMENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_PHYSMEM>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_PHYSMEMENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_PHYSMEMENTRY[] m = new MAP_PHYSMEMENTRY[0];
             if (!vmmi.VMMDLL_Map_GetPhysMem(hVMM, out pMap)) { goto fail; }
@@ -1742,14 +1743,13 @@ namespace vmmsharp
 
         public unsafe MAP_POOLENTRY[] Map_GetPool()
         {
-            byte[] tag = { 0, 0, 0, 0 };
+            byte[] tag = { 0, 0, 0, 0};
             IntPtr pN = IntPtr.Zero;
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_POOL));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_POOLENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_POOL>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_POOLENTRY>();
             if (!vmmi.VMMDLL_Map_GetPool(hVMM, out pN, 0)) { return new MAP_POOLENTRY[0]; }
             vmmi.VMMDLL_MAP_POOL nM = Marshal.PtrToStructure<vmmi.VMMDLL_MAP_POOL>(pN);
-            if (nM.dwVersion != vmmi.VMMDLL_MAP_POOL_VERSION)
-            {
+            if (nM.dwVersion != vmmi.VMMDLL_MAP_POOL_VERSION) {
                 vmmi.VMMDLL_MemFree((byte*)pN.ToPointer());
                 return new MAP_POOLENTRY[0];
             }
@@ -1774,8 +1774,8 @@ namespace vmmsharp
 
         public unsafe MAP_USERENTRY[] Map_GetUsers()
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_USER));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_USERENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_USER>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_USERENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_USERENTRY[] m = new MAP_USERENTRY[0];
             if (!vmmi.VMMDLL_Map_GetUsers(hVMM, out pMap)) { goto fail; }
@@ -1798,8 +1798,8 @@ namespace vmmsharp
 
         public unsafe MAP_SERVICEENTRY[] Map_GetServices()
         {
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_SERVICE));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_SERVICEENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_SERVICE>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_SERVICEENTRY>();
             IntPtr pMap = IntPtr.Zero;
             MAP_SERVICEENTRY[] m = new MAP_SERVICEENTRY[0];
             if (!vmmi.VMMDLL_Map_GetServices(hVMM, out pMap)) { goto fail; }
@@ -1838,8 +1838,8 @@ namespace vmmsharp
         {
             bool result;
             uint cbPfns;
-            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_PFN));
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_MAP_PFNENTRY));
+            int cbMAP = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_PFN>();
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_MAP_PFNENTRY>();
             if (pfns.Length == 0) { return new MAP_PFNENTRY[0]; }
             byte[] dataPfns = new byte[pfns.Length * sizeof(uint)];
             System.Buffer.BlockCopy(pfns, 0, dataPfns, 0, dataPfns.Length);
@@ -1921,7 +1921,7 @@ namespace vmmsharp
         {
             bool result;
             uint cHives;
-            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf(typeof(vmmi.VMMDLL_REGISTRY_HIVE_INFORMATION));
+            int cbENTRY = System.Runtime.InteropServices.Marshal.SizeOf<vmmi.VMMDLL_REGISTRY_HIVE_INFORMATION>();
             result = vmmi.VMMDLL_WinReg_HiveList(hVMM, null, 0, out cHives);
             if (!result || (cHives == 0)) { return new REGISTRY_HIVE_INFORMATION[0]; }
             fixed (byte* pb = new byte[cHives * cbENTRY])
@@ -1933,7 +1933,7 @@ namespace vmmsharp
                 {
                     vmmi.VMMDLL_REGISTRY_HIVE_INFORMATION n = Marshal.PtrToStructure<vmmi.VMMDLL_REGISTRY_HIVE_INFORMATION>((System.IntPtr)(pb + i * cbENTRY));
                     REGISTRY_HIVE_INFORMATION e;
-                    if (n.wVersion != vmmi.VMMDLL_REGISTRY_HIVE_INFORMATION_VERSION) { return new REGISTRY_HIVE_INFORMATION[0]; }
+                    if(n.wVersion != vmmi.VMMDLL_REGISTRY_HIVE_INFORMATION_VERSION) { return new REGISTRY_HIVE_INFORMATION[0]; }
                     e.vaCMHIVE = n.vaCMHIVE;
                     e.vaHBASE_BLOCK = n.vaHBASE_BLOCK;
                     e.cbLength = n.cbLength;
@@ -1953,12 +1953,12 @@ namespace vmmsharp
             byte[] data = new byte[cb];
             fixed (byte* pb = data)
             {
-                if (!vmmi.VMMDLL_WinReg_HiveReadEx(hVMM, vaCMHIVE, ra, pb, cb, out cbRead, flags))
+                if(!vmmi.VMMDLL_WinReg_HiveReadEx(hVMM, vaCMHIVE, ra, pb, cb, out cbRead, flags))
                 {
                     return null;
                 }
             }
-            if (cbRead != cb)
+            if(cbRead != cb)
             {
                 Array.Resize<byte>(ref data, (int)cbRead);
             }
@@ -2016,7 +2016,7 @@ namespace vmmsharp
             bool result;
             uint cb = 0;
             result = vmmi.VMMDLL_WinReg_QueryValueExW(hVMM, wszFullPathKeyValue, out tp, null, ref cb);
-            if (!result)
+            if(!result)
             {
                 return null;
             }
@@ -2171,26 +2171,26 @@ namespace vmmsharp
 
     internal static class vmmi
     {
-        internal static ulong MAX_PATH = 260;
-        internal static uint VMMDLL_MAP_PTE_VERSION = 2;
-        internal static uint VMMDLL_MAP_VAD_VERSION = 6;
-        internal static uint VMMDLL_MAP_VADEX_VERSION = 3;
-        internal static uint VMMDLL_MAP_MODULE_VERSION = 6;
-        internal static uint VMMDLL_MAP_UNLOADEDMODULE_VERSION = 2;
-        internal static uint VMMDLL_MAP_EAT_VERSION = 3;
-        internal static uint VMMDLL_MAP_IAT_VERSION = 2;
-        internal static uint VMMDLL_MAP_HEAP_VERSION = 4;
-        internal static uint VMMDLL_MAP_HEAPALLOC_VERSION = 1;
-        internal static uint VMMDLL_MAP_THREAD_VERSION = 4;
-        internal static uint VMMDLL_MAP_HANDLE_VERSION = 3;
-        internal static uint VMMDLL_MAP_NET_VERSION = 3;
-        internal static uint VMMDLL_MAP_PHYSMEM_VERSION = 2;
-        internal static uint VMMDLL_MAP_POOL_VERSION = 2;
-        internal static uint VMMDLL_MAP_USER_VERSION = 2;
-        internal static uint VMMDLL_MAP_PFN_VERSION = 1;
-        internal static uint VMMDLL_MAP_SERVICE_VERSION = 3;
-        internal static uint VMMDLL_MEM_SEARCH_VERSION = 0xfe3e0002;
-        internal static uint VMMDLL_REGISTRY_HIVE_INFORMATION_VERSION = 4;
+        internal const ulong MAX_PATH =                     260;
+        internal const uint VMMDLL_MAP_PTE_VERSION =        2;
+        internal const uint VMMDLL_MAP_VAD_VERSION =        6;
+        internal const uint VMMDLL_MAP_VADEX_VERSION =      3;
+        internal const uint VMMDLL_MAP_MODULE_VERSION =     6;
+        internal const uint VMMDLL_MAP_UNLOADEDMODULE_VERSION = 2;
+        internal const uint VMMDLL_MAP_EAT_VERSION =        3;
+        internal const uint VMMDLL_MAP_IAT_VERSION =        2;
+        internal const uint VMMDLL_MAP_HEAP_VERSION =       4;
+        internal const uint VMMDLL_MAP_HEAPALLOC_VERSION =  1;
+        internal const uint VMMDLL_MAP_THREAD_VERSION =     4;
+        internal const uint VMMDLL_MAP_HANDLE_VERSION =     3;
+        internal const uint VMMDLL_MAP_NET_VERSION =        3;
+        internal const uint VMMDLL_MAP_PHYSMEM_VERSION =    2;
+        internal const uint VMMDLL_MAP_POOL_VERSION =       2;
+        internal const uint VMMDLL_MAP_USER_VERSION =       2;
+        internal const uint VMMDLL_MAP_PFN_VERSION =        1;
+        internal const uint VMMDLL_MAP_SERVICE_VERSION =    3;
+        internal const uint VMMDLL_MEM_SEARCH_VERSION =     0xfe3e0002;
+        internal const uint VMMDLL_REGISTRY_HIVE_INFORMATION_VERSION = 4;
 
 
 
@@ -2227,8 +2227,8 @@ namespace vmmsharp
 
         // VFS (VIRTUAL FILE SYSTEM) FUNCTIONALITY BELOW:
 
-        internal static uint VMMDLL_VFS_FILELIST_EXINFO_VERSION = 1;
-        internal static uint VMMDLL_VFS_FILELIST_VERSION = 2;
+        internal const uint VMMDLL_VFS_FILELIST_EXINFO_VERSION = 1;
+        internal const uint VMMDLL_VFS_FILELIST_VERSION = 2;
 
         [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
         internal struct VMMDLL_VFS_FILELIST
@@ -2384,8 +2384,8 @@ namespace vmmsharp
         [DllImport("vmm.dll", EntryPoint = "VMMDLL_ProcessGetModuleBaseW")]
         public static extern ulong VMMDLL_ProcessGetModuleBase(IntPtr hVMM, uint pid, [MarshalAs(UnmanagedType.LPWStr)] string wszModuleName);
 
-        internal static ulong VMMDLL_PROCESS_INFORMATION_MAGIC = 0xc0ffee663df9301e;
-        internal static ushort VMMDLL_PROCESS_INFORMATION_VERSION = 7;
+        internal const ulong VMMDLL_PROCESS_INFORMATION_MAGIC =         0xc0ffee663df9301e;
+        internal const ushort VMMDLL_PROCESS_INFORMATION_VERSION =      7;
 
         [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = CharSet.Ansi)]
         internal struct VMMDLL_PROCESS_INFORMATION
@@ -2903,7 +2903,8 @@ namespace vmmsharp
             internal byte bSuspendCount;
             internal byte bWaitReason;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] internal byte[] _FutureUse1;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 13)] internal uint[] _FutureUse2;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)] internal uint[] _FutureUse2;
+            internal ulong vaImpersonationToken;
             internal ulong vaWin32StartAddress;
         }
 
