@@ -21,7 +21,7 @@ namespace VmmFrost
         /// (Base)
         /// MemProcFS Vmm Instance
         /// </summary>
-        protected Vmm HVmm { get; }
+        public Vmm HVmm { get; }
 
         /// <summary>
         /// (Base)
