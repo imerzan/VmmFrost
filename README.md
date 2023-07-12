@@ -7,7 +7,7 @@ If you have a question with this API or encounter a bug, please open an [Issue](
 
 ### Example on initializing a FPGA Connection:
 ```csharp
-var mem = new MemDMA(); // Easy! Customize MemDMA class if you want to change init parameters.
+var mem = new MemDMA(); // Easy! Modify the 'args' parameter if you want to supply custom init arguments.
 ```
 
 ### Scatter Read Example:
