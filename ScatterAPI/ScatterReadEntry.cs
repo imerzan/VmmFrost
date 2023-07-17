@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace VmmFrost.ScatterAPI
@@ -120,16 +121,7 @@ namespace VmmFrost.ScatterAPI
         {
             if (buffer.Length != Marshal.SizeOf<T>()) // Safety Check
                 throw new ArgumentOutOfRangeException(nameof(buffer));
-            var h = GCHandle.Alloc(buffer, GCHandleType.Pinned); // Pin Buffer
-            try
-            {
-                var ptr = h.AddrOfPinnedObject();
-                Result = Marshal.PtrToStructure<T>(ptr);
-            }
-            finally
-            { 
-                h.Free(); // Release GC Handle
-            }
+            Result = Unsafe.As<byte, T>(ref buffer[0]);
             if (Result is MemPointer memPtrResult)
                 memPtrResult.Validate();
         }

@@ -312,7 +312,9 @@ namespace VmmFrost
                 int size = Marshal.SizeOf<T>();
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
                 var buf = Vmm.MemRead(pid, addr, (uint)size, flags);
-                return MemoryMarshal.Read<T>(buf);
+                if (buf.Length != size)
+                    throw new Exception("Incomplete Memory Read!");
+                return Unsafe.As<byte, T>(ref buf[0]);
             }
             catch (Exception ex)
             {
