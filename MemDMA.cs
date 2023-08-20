@@ -43,7 +43,8 @@ namespace VmmFrost
                         try
                         {
                             Vmm = new Vmm(args);
-                            GetMemMap();
+                            var map = GetMemMap();
+                            File.WriteAllBytes(MemoryMapFile, map);
                         }
                         finally
                         {
@@ -67,38 +68,31 @@ namespace VmmFrost
 
         #region Mem Startup
         /// <summary>
-        /// Generates a Physical Memory Map (mmap.txt) to enhance performance/safety.
+        /// Generates a Physical Memory Map in ASCII Binary Format.
         /// https://github.com/ufrisk/LeechCore/wiki/Device_FPGA_AMD_Thunderbolt
         /// </summary>
-        private void GetMemMap()
+        private byte[] GetMemMap()
         {
             try
             {
                 var map = Vmm.Map_GetPhysMem();
-                if (map.Length == 0) 
-                    throw new Exception("Map_GetPhysMem() returned no entries!");
+                if (map.Length == 0)
+                    throw new Exception("VMMDLL_Map_GetPhysMem FAIL!");
                 var sb = new StringBuilder();
-                sb.AppendFormat("{0,4}", "#")
-                    .Append(' ') // Spacer [1]
-                    .AppendFormat("{0,16}", "Base")
-                    .Append("   ") // Spacer [3]
-                    .AppendFormat("{0,16}", "Top")
-                    .AppendLine();
-                sb.AppendLine("-----------------------------------------");
+                int leftLength = map.Max(x => x.pa).ToString("x").Length;
+                int rightLength = map.Max(x => x.pa + x.cb - 1).ToString("x").Length;
                 for (int i = 0; i < map.Length; i++)
                 {
-                    sb.AppendFormat("{0,4}", $"{i.ToString("D4")}")
-                        .Append(' ') // Spacer [1]
-                        .AppendFormat("{0,16}", $"{map[i].pa.ToString("x")}")
-                        .Append(" - ") // Spacer [3]
-                        .AppendFormat("{0,16}", $"{(map[i].pa + map[i].cb - 1).ToString("x")}")
+                    sb.AppendFormat($"{{0,{-leftLength}}}", $"{map[i].pa.ToString("x")}")
+                        .Append(" - ")
+                        .AppendFormat($"{{0,{-rightLength}}}", $"{(map[i].pa + map[i].cb - 1).ToString("x")}")
                         .AppendLine();
                 }
-                File.WriteAllText(MemoryMapFile, sb.ToString());
+                return Encoding.ASCII.GetBytes(sb.ToString());
             }
             catch (Exception ex)
             {
-                throw new DMAException("Failed to generate Mem Map!", ex);
+                throw new DMAException("[DMA] Unable to get Mem Map!", ex);
             }
         }
 
