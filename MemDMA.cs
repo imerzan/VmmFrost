@@ -80,12 +80,10 @@ namespace VmmFrost
                     throw new Exception("VMMDLL_Map_GetPhysMem FAIL!");
                 var sb = new StringBuilder();
                 int leftLength = map.Max(x => x.pa).ToString("x").Length;
-                int rightLength = map.Max(x => x.pa + x.cb - 1).ToString("x").Length;
                 for (int i = 0; i < map.Length; i++)
                 {
                     sb.AppendFormat($"{{0,{-leftLength}}}", $"{map[i].pa.ToString("x")}")
-                        .Append(" - ")
-                        .AppendFormat($"{{0,{-rightLength}}}", $"{(map[i].pa + map[i].cb - 1).ToString("x")}")
+                        .Append($" - {(map[i].pa + map[i].cb - 1).ToString("x")}")
                         .AppendLine();
                 }
                 return Encoding.ASCII.GetBytes(sb.ToString());
