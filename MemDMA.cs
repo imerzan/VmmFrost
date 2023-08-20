@@ -82,7 +82,7 @@ namespace VmmFrost
                 int leftLength = map.Max(x => x.pa).ToString("x").Length;
                 for (int i = 0; i < map.Length; i++)
                 {
-                    sb.AppendFormat($"{{0,{-leftLength}}}", $"{map[i].pa.ToString("x")}")
+                    sb.AppendFormat($"{{0,{-leftLength}}}", map[i].pa.ToString("x"))
                         .Append($" - {(map[i].pa + map[i].cb - 1).ToString("x")}")
                         .AppendLine();
                 }
