@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace VmmFrost.ScatterAPI
 {
@@ -26,7 +27,7 @@ namespace VmmFrost.ScatterAPI
         public static ScatterWriteEntry Create<T>(ulong va, T value)
             where T : struct
         {
-            var bytes = new byte[Marshal.SizeOf<T>()];
+            var bytes = new byte[Unsafe.SizeOf<T>()];
             MemoryMarshal.Write(bytes, ref value);
             return new ScatterWriteEntry()
             {

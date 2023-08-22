@@ -81,7 +81,7 @@ namespace VmmFrost.ScatterAPI
         {
             int size = 0;
             if (this.Type.IsValueType)
-                size = Marshal.SizeOf<T>();
+                size = Unsafe.SizeOf<T>();
             else if (this.Size is int sizeInt)
                 size = sizeInt;
             else if (this.Size is IScatterEntry sizeObj) // Check if the size references another ScatterRead Result
@@ -119,7 +119,7 @@ namespace VmmFrost.ScatterAPI
         /// <param name="buffer">Raw memory buffer for this read.</param>
         private void SetValueResult(byte[] buffer)
         {
-            if (buffer.Length != Marshal.SizeOf<T>()) // Safety Check
+            if (buffer.Length != Unsafe.SizeOf<T>()) // Safety Check
                 throw new ArgumentOutOfRangeException(nameof(buffer));
             Result = Unsafe.As<byte, T>(ref buffer[0]);
             if (Result is MemPointer memPtrResult)

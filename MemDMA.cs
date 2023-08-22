@@ -297,7 +297,7 @@ namespace VmmFrost
         {
             try
             {
-                int size = Marshal.SizeOf<T>();
+                int size = Unsafe.SizeOf<T>();
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
                 var buf = HVmm.MemRead(pid, addr, (uint)size, flags);
                 if (buf.Length != size)
@@ -351,7 +351,7 @@ namespace VmmFrost
         {
             try
             {
-                var data = new byte[Marshal.SizeOf<T>()];
+                var data = new byte[Unsafe.SizeOf<T>()];
                 MemoryMarshal.Write(data, ref value);
                 if (!HVmm.MemWrite(pid, addr, data))
                     throw new Exception("Memory Write Failed!");
