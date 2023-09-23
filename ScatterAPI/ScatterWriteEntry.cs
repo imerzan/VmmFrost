@@ -25,7 +25,7 @@ namespace VmmFrost.ScatterAPI
         /// <param name="value">Value to write.</param>
         /// <returns>ScatterWriteEntry</returns>
         public static ScatterWriteEntry Create<T>(ulong va, T value)
-            where T : struct
+            where T : unmanaged
         {
             var bytes = new byte[Unsafe.SizeOf<T>()];
             MemoryMarshal.Write(bytes, ref value);

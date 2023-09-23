@@ -293,7 +293,7 @@ namespace VmmFrost
         /// <returns>Value Type of <typeparamref name="T"/></returns>
         /// <exception cref="DMAException"></exception>
         public virtual T ReadValue<T>(uint pid, ulong addr, bool useCache = true)
-            where T : struct
+            where T : unmanaged
         {
             try
             {
@@ -347,7 +347,7 @@ namespace VmmFrost
         /// <param name="value"></param>
         /// <exception cref="DMAException"></exception>
         public virtual void WriteValue<T>(uint pid, ulong addr, T value)
-            where T : struct
+            where T : unmanaged
         {
             try
             {
