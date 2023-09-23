@@ -297,12 +297,10 @@ namespace VmmFrost
         {
             try
             {
-                int size = Unsafe.SizeOf<T>();
                 uint flags = useCache ? 0 : Vmm.FLAG_NOCACHE;
-                var buf = HVmm.MemRead(pid, addr, (uint)size, flags);
-                if (buf.Length != size)
-                    throw new Exception("Incomplete Memory Read!");
-                return Unsafe.As<byte, T>(ref buf[0]);
+                if (!HVmm.MemReadStruct<T>(pid, addr, out var result, flags))
+                    throw new Exception("Memory Read Failed!");
+                return result;
             }
             catch (Exception ex)
             {
@@ -359,32 +357,6 @@ namespace VmmFrost
             catch (Exception ex)
             {
                 throw new DMAException($"[DMA] ERROR writing {typeof(T)} value at 0x{addr.ToString("X")}", ex);
-            }
-        }
-
-        /// <summary>
-        /// (Base)
-        /// Perform a Scatter Write Operation.
-        /// </summary>
-        /// <param name="pid">Process ID to write to.</param>
-        /// <param name="entries">Scatter Write Entries to write.</param>
-        /// <exception cref="DMAException"></exception>
-        public virtual void WriteScatter(uint pid, params ScatterWriteEntry[] entries)
-        {
-            try
-            {
-                using var hScatter = HVmm.Scatter_Initialize(pid, Vmm.FLAG_NOCACHE);
-                foreach (var entry in entries)
-                {
-                    if (!hScatter.PrepareWrite(entry.Va, entry.Value))
-                        throw new DMAException($"ERROR preparing Scatter Write for entry 0x{entry.Va.ToString("X")}");
-                }
-                if (!hScatter.Execute())
-                    throw new DMAException("Scatter Write Failed!");
-            }
-            catch (Exception ex)
-            {
-                throw new DMAException($"[DMA] ERROR executing Scatter Write!", ex);
             }
         }
         #endregion
