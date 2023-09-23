@@ -349,9 +349,7 @@ namespace VmmFrost
         {
             try
             {
-                var data = new byte[Unsafe.SizeOf<T>()];
-                MemoryMarshal.Write(data, ref value);
-                if (!HVmm.MemWrite(pid, addr, data))
+                if (!HVmm.MemWriteStruct(pid, addr, value))
                     throw new Exception("Memory Write Failed!");
             }
             catch (Exception ex)
