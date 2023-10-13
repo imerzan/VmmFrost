@@ -1,4 +1,10 @@
 # VmmFrost
+
+### Update 10/13/2023
+** Most of the abstractions in here have been implemented into [Vmmsharp](https://github.com/ufrisk/MemProcFS/blob/master/vmmsharp/vmmsharp.cs). As such I won't be updating this any longer.
+
+________________________________
+
 C#/.NET6 Wrapper for MemProcFS (Vmmsharp), with additional extensions.
 
 Based on [Ulf Frisk](https://github.com/ufrisk)'s amazing [MemProcFS](https://github.com/ufrisk/MemProcFS) Library. Please support/sponsor him if you are able!
